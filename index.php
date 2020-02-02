@@ -150,21 +150,21 @@ $bot->command("buttons", function ($message) use ($bot) {
 });
 
 // Отлов любых сообщений + обрабтка reply-кнопок
-$bot->on(function($Update) use ($bot){
+$bot->on(function($update2) use ($bot){
 
-    $message = $Update->getMessage();
-    $mtext = $message->getText();
-    $cid = $message->getChat()->getId();
+    $message2 = $update2->getMessage();
+    $mtext = $message2->getText();
+    $cid = $message2->getChat()->getId();
 
     if(mb_stripos($mtext,"Сиськи") !== false){
         $pic = "http://aftamat4ik.ru/wp-content/uploads/2017/05/14277366494961.jpg";
 
-        $bot->sendPhoto($message->getChat()->getId(), $pic);
+        $bot->sendPhoto($message2->getChat()->getId(), $pic);
     }
     if(mb_stripos($mtext,"власть советам") !== false){
-        $bot->sendMessage($message->getChat()->getId(), "Смерть богатым!");
+        $bot->sendMessage($message2->getChat()->getId(), "Смерть богатым!");
     }
-}, function($message) use ($name){
+}, function($message2) use ($bot){
     return true; // когда тут true - команда проходит
 });
 
