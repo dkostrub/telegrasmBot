@@ -1,8 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
-.gitignore
 .idea/
-composer.json
-composer.lock
 composer.phar
 lib/
 vendor/
