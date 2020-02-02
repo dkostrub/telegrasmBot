@@ -22,7 +22,21 @@ if(!file_exists("registered.trigger")){
         file_put_contents("registered.trigger",time()); // создаем файл дабы прекратить повторные регистрации
     }
 }
+// обязательное. Запуск бота
+$bot->command('start', function ($message) use ($bot) {
+    $answer = 'Добро пожаловать!';
+    $bot->sendMessage($message->getChat()->getId(), $answer);
+});
 
+// помощ
+$bot->command('help', function ($message) use ($bot) {
+    $answer = 'Команды:
+/help - помощ';
+    $bot->sendMessage($message->getChat()->getId(), $answer);
+});
+
+// запускаем обработку
+$bot->run();
 //$update = json_decode(file_get_contents('php://input'), JSON_OBJECT_AS_ARRAY);
 //
 //function sendRequest($method, $params = [])
