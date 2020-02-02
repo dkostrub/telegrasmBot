@@ -1,7 +1,6 @@
 <?php
-
 header('Content-Type: text/html; charset=utf-8');
-
+// подрубаем API
 require_once("vendor/autoload.php");
 
 // дебаг
@@ -10,9 +9,9 @@ if(true){
     ini_set('display_errors', 1);
 }
 
-const TOKEN = '570281200:AAGF3hdXo3oSJpzHkRIfOUlGkQvVembmZOc';
-$bot = new \TelegramBot\Api\Client(TOKEN);
-const BASE_URL = 'https://api.telegram.org/bot'.TOKEN.'/';
+// создаем переменную бота
+$token = "570281200:AAGF3hdXo3oSJpzHkRIfOUlGkQvVembmZOc";
+$bot = new \TelegramBot\Api\Client($token,null);
 
 if($_GET["bname"] == "revcombot"){
     $bot->sendMessage("@DinnernotiBot", "Тест");
@@ -33,12 +32,6 @@ if(!file_exists("registered.trigger")){
     } else die("ошибка регистрации");
 }
 
-// обязательное. Запуск бота
-$bot->command('start', function ($message) use ($bot) {
-    $answer = 'Добро пожаловать!';
-    $bot->sendMessage($message->getChat()->getId(), $answer);
-});
-
 // Команды бота
 // обязательное. Запуск бота
 $bot->command('start', function ($message) use ($bot) {
@@ -51,6 +44,13 @@ $bot->command('help', function ($message) use ($bot) {
     $answer = 'Команды:
 /help - помощ';
     $bot->sendMessage($message->getChat()->getId(), $answer);
+});
+
+// передаем картинку
+$bot->command('getpic', function ($message) use ($bot) {
+    $pic = "http://aftamat4ik.ru/wp-content/uploads/2017/03/photo_2016-12-13_23-21-07.jpg";
+
+    $bot->sendPhoto($message->getChat()->getId(), $pic);
 });
 
 // Кнопки у сообщений
@@ -88,6 +88,7 @@ $bot->on(function($update) use ($bot, $callback_loc, $find_command){
         return false;
     return true;
 });
+
 // обработка инлайнов
 $bot->inlineQuery(function ($inlineQuery) use ($bot) {
     mb_internal_encoding("UTF-8");
@@ -167,12 +168,10 @@ $bot->on(function($Update) use ($bot){
     return true; // когда тут true - команда проходит
 });
 
-
 // запускаем обработку
 $bot->run();
 
 echo "бот";
-
 
 
 
